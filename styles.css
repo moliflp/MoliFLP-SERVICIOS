@@ -418,6 +418,22 @@ h2 em { font-style: normal; background: var(--grad); -webkit-background-clip: te
   .cart-btn span { display: none; }
   .socials { grid-template-columns: 1fr; }
 }
+
+/* Móvil: menos scroll. Carruseles horizontales y menos duplicados */
+@media (max-width: 560px) {
+  .section { padding-top: 52px; padding-bottom: 52px; }
+  .about-card { display: none; }
+  .socials { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
+  .svc-grid, .conds {
+    display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+    margin-left: -16px; margin-right: -16px; padding: 6px 16px 14px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+  }
+  .svc-grid::-webkit-scrollbar, .conds::-webkit-scrollbar { display: none; }
+  .svc-grid > *, .conds > * { flex: 0 0 82%; scroll-snap-align: center; }
+  .conds > * { flex-basis: 78%; }
+  .lic-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
