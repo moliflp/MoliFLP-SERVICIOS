@@ -21,7 +21,7 @@
     ["spotify", "Spotify", "#1DB954"], ["youtube", "YouTube", "#FF0033"], ["apple", "Apple Music", "#FA2D48"],
     ["amazon", "Amazon Music", "#25D1DA"], ["soundcloud", "SoundCloud", "#FF7700"],
   ];
-  const num = (n) => n.toLocaleString("es-ES");
+  const num = (n) => n.toLocaleString("es-ES", { useGrouping: "always" });
 
   /* ---------- Perfil, cifras y vídeo ---------- */
   $("#roles").innerHTML = PERFIL.roles.map((r) => `<li>${r}</li>`).join("");
@@ -390,7 +390,7 @@
     en.target.classList.add("in");
     en.target.querySelectorAll("[data-count]").forEach(contar);
     io.unobserve(en.target);
-  }), { threshold: .12 });
+  }), { threshold: 0, rootMargin: "0px 0px -8% 0px" });
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
   function contar(el) {
     const fin = +el.dataset.count, t0 = performance.now();
