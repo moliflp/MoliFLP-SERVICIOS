@@ -84,11 +84,15 @@
   const saveCart = () => { try { localStorage.setItem("moliflp-cart", JSON.stringify(cart)); } catch {} };
 
   /* ---------- Catálogo ---------- */
+  // En móvil solo se muestran los 4 últimos temas (sin filtros ni buscador)
+  const movil = window.matchMedia("(max-width: 560px)");
+  const MOVIL_MAX = 4;
   const generos = ["Todos", ...new Set(TEMAS.map((t) => t.genero))];
   const chips = $("#chips");
   const renderChips = () => {
-    chips.hidden = state.tab !== "musica";
-    $("#filters").style.display = state.tab === "musica" ? "" : "none";
+    const ver = state.tab === "musica" && !movil.matches;
+    chips.hidden = !ver;
+    $("#filters").style.display = ver ? "" : "none";
     chips.innerHTML = generos.map((g) => `<button class="${g === state.genero ? "active" : ""}" data-g="${g}">${g}</button>`).join("");
   };
   chips.addEventListener("click", (e) => {
@@ -182,6 +186,7 @@
         (t.titulo + " " + t.feat).toLowerCase().includes(state.q.toLowerCase()));
       lista.sort((a, b) => state.sort === "az" ? a.titulo.localeCompare(b.titulo, "es")
         : state.sort === "old" ? a.fecha.localeCompare(b.fecha) : b.fecha.localeCompare(a.fecha));
+      if (movil.matches) lista = [...TEMAS].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, MOVIL_MAX);
       html = lista.map(cardTema).join(""); n = lista.length;
     } else if (state.tab === "beats") {
       html = BEATS.map(cardBeat).join(""); n = BEATS.length;
@@ -401,5 +406,6 @@
 
   if (CONFIG.whatsapp) $("#contactBtn").href = "https://wa.me/" + CONFIG.whatsapp;
   $("#year").textContent = new Date().getFullYear();
+  movil.addEventListener("change", () => { renderChips(); render(); });
   renderChips(); render(); renderCart();
 })();

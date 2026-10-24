@@ -16,13 +16,15 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; overflow-x: hidden; overflow-x: clip; max-width: 100%; -webkit-text-size-adjust: 100%; }
 body {
   font-family: Inter, system-ui, sans-serif;
   background: radial-gradient(circle at 50% -20%, #25104a 0%, var(--bg) 70%) fixed, var(--bg);
   color: var(--txt);
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
   -webkit-font-smoothing: antialiased;
 }
 img { display: block; max-width: 100%; }
@@ -171,6 +173,7 @@ h2 em { font-style: normal; background: var(--grad); -webkit-background-clip: te
 .chips button { padding: 6px 14px; border-radius: 999px; font-size: 13px; border: 1px solid var(--line); color: var(--mute); transition: all .2s; }
 .chips button.active, .chips button:hover { color: var(--txt); border-color: var(--pink); background: rgba(255, 79, 216, .1); }
 
+.more-mobile { display: none; text-align: center; margin-top: 22px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
 .card {
   position: relative; display: flex; flex-direction: column; border-radius: var(--r); overflow: hidden;
@@ -285,9 +288,9 @@ h2 em { font-style: normal; background: var(--grad); -webkit-background-clip: te
 .drawer {
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 60; width: min(420px, 100%);
   display: flex; flex-direction: column; background: var(--bg2); border-left: 1px solid var(--line);
-  transform: translateX(100%); transition: transform .45s var(--ease);
+  transform: translateX(100%); visibility: hidden; transition: transform .45s var(--ease), visibility 0s .45s;
 }
-.drawer.open { transform: none; }
+.drawer.open { transform: none; visibility: visible; transition: transform .45s var(--ease), visibility 0s; }
 .dr-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 22px; border-bottom: 1px solid var(--line); }
 .dr-head h3 { font-family: Unbounded; font-size: 18px; }
 .dr-head button { font-size: 18px; color: var(--mute); }
@@ -405,6 +408,7 @@ h2 em { font-style: normal; background: var(--grad); -webkit-background-clip: te
   .lic-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 560px) {
+  .more-mobile { display: block; }
   .stats { grid-template-columns: 1fr 1fr; }
   .lic-grid { grid-template-columns: 1fr; }
   .filters, .filters input { width: 100%; }
