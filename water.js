@@ -25,6 +25,7 @@
   const luz = (n) => {
     if (n === actual || !capas.length) return;
     actual = n;
+    dispatchEvent(new CustomEvent("moliflp:luz", { detail: n }));
     const entra = capas[1 - capa], sale = capas[capa];
     entra.dataset.l = n;
     // un fotograma para que el navegador registre la capa nueva antes del fundido
@@ -38,6 +39,12 @@
     if (e.isIntersecting) luz(SECCIONES.findIndex((s) => e.target.matches(s)));
   }), { rootMargin: "-50% 0px -50% 0px" });
   SECCIONES.forEach((s) => { const el = document.querySelector(s); if (el) centro.observe(el); });
+
+  /* 2b · Escena 3D (vinilo + partículas): se carga tras pintar la página, nunca en modo lite */
+  if (!flojo && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const cargar = () => { const sc = document.createElement("script"); sc.src = "scene3d.js"; sc.async = true; document.body.appendChild(sc); };
+    ("requestIdleCallback" in window) ? requestIdleCallback(cargar, { timeout: 2500 }) : setTimeout(cargar, 1200);
+  }
 
   /* 3 · Animar solo lo que está en pantalla */
   const hero = document.querySelector(".hero");

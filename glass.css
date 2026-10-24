@@ -262,3 +262,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 .listen a,.nav .logo{position:relative}
 .listen a::before,.nav .logo::before{content:"";position:absolute;inset:-6px}
 @media (pointer:coarse){.lic button,.buy .add{min-height:44px}}
+
+/* ===== Escena 3D ===== */
+.gl3d{position:fixed;left:0;top:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.2s ease;contain:strict}
+.gl .gl3d{opacity:1}
+.gl .vinyl{display:none}
+.gl .avatar{box-shadow:0 0 0 3px rgba(255,255,255,.35),0 0 50px rgba(155,92,255,.6)}
+.gl .avatar-wrap{width:170px;height:170px;margin:72px auto 100px}
+.gl .avatar{width:150px;height:150px}
+@media (hover:hover) and (pointer:fine){
+  .card,.lic-card,.panel{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+  .card:hover,.lic-card:hover,.panel:hover{transform:perspective(900px) translateY(-5px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+}
