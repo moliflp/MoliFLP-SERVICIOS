@@ -33,15 +33,44 @@ h2 { font-weight: 800; letter-spacing: -.035em; text-shadow: 0 2px 14px rgba(5, 
 .lead, .sub, .about-text p:not(.kicker), .svc-card p, .pack p, .cond p, .lic-card p, .faq details p, .records span, .legend span, .inc, .origin { color: #e6e0f5; }
 .sub, .lead, .about-text p { text-shadow: 0 1px 10px rgba(5, 0, 30, .6); }
 
-/* ---------- Fondo líquido: gotas con degradado, solo transform (GPU) ---------- */
-body { background: linear-gradient(160deg, #1a0d3b, #090720 55%, #28092f) fixed, var(--bg); }
+/* ---------- Fondo Tecunelo: luz ambiental que CAMBIA con cada sección ----------
+   Dos capas de luz que se funden (solo opacity/transform = GPU). Sin separadores:
+   todas las secciones flotan sobre el mismo fondo y lo que cambia es la luz. */
+body { background: radial-gradient(120% 80% at 50% -10%, #22104a 0%, #0c061d 45%, #05020c 80%) fixed, #05020c; }
+.orb { display: none; }
 .bg { contain: strict; }
-.orb { display: block; filter: none; mix-blend-mode: normal; opacity: .6; border-radius: 50%; will-change: transform; animation: blob 16s ease-in-out infinite alternate; }
-.o1 { width: 560px; height: 560px; top: 2%; left: -220px; background: radial-gradient(circle closest-side, #ff3d9a, rgba(255, 61, 154, 0)); }
-.o2 { width: 640px; height: 640px; top: 36%; right: -280px; opacity: .55; background: radial-gradient(circle closest-side, #7a4dff, rgba(122, 77, 255, 0)); animation-duration: 20s; animation-delay: -6s; }
-.o3 { width: 560px; height: 560px; bottom: -200px; left: -60px; opacity: .45; background: radial-gradient(circle closest-side, #19d3ff, rgba(25, 211, 255, 0)); animation-duration: 18s; animation-delay: -10s; }
-.bg::after { content: ""; position: absolute; right: -80px; bottom: 12%; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle closest-side, #ffb347, rgba(255, 179, 71, 0)); opacity: .35; will-change: transform; animation: blob 14s ease-in-out infinite alternate -4s; }
-@keyframes blob { 0% { transform: translate3d(0, 0, 0) scale(1); } 100% { transform: translate3d(90px, 140px, 0) scale(1.18); } }
+.bg::after { content: ""; position: absolute; inset: 0; opacity: .05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.lights { position: absolute; inset: -8%; will-change: transform; animation: lightdrift 28s ease-in-out infinite alternate; }
+.L { position: absolute; inset: 0; opacity: 0; transition: opacity 1.8s ease; will-change: opacity; }
+.L.on { opacity: 1; }
+.L[data-l="0"] { background: radial-gradient(70vmax 70vmax at 12% 2%, rgba(124, 77, 255, .55), transparent 70%), radial-gradient(60vmax 60vmax at 100% 38%, rgba(255, 60, 199, .32), transparent 70%), radial-gradient(55vmax 55vmax at 0% 100%, rgba(52, 230, 255, .20), transparent 70%); }
+.L[data-l="1"] { background: radial-gradient(70vmax 70vmax at 92% 8%, rgba(255, 60, 199, .50), transparent 70%), radial-gradient(60vmax 60vmax at 0% 55%, rgba(184, 124, 255, .36), transparent 70%), radial-gradient(55vmax 55vmax at 75% 100%, rgba(150, 30, 110, .45), transparent 70%); }
+.L[data-l="2"] { background: radial-gradient(70vmax 70vmax at 8% 14%, rgba(52, 230, 255, .42), transparent 70%), radial-gradient(60vmax 60vmax at 100% 56%, rgba(124, 77, 255, .46), transparent 70%), radial-gradient(50vmax 50vmax at 30% 100%, rgba(61, 255, 139, .20), transparent 70%); }
+.L[data-l="3"] { background: radial-gradient(70vmax 70vmax at 50% 0%, rgba(124, 77, 255, .55), transparent 70%), radial-gradient(60vmax 60vmax at 0% 60%, rgba(91, 59, 255, .40), transparent 70%), radial-gradient(55vmax 55vmax at 100% 100%, rgba(255, 60, 199, .30), transparent 70%); }
+.L[data-l="4"] { background: radial-gradient(70vmax 70vmax at 100% 10%, rgba(255, 179, 71, .38), transparent 70%), radial-gradient(60vmax 60vmax at 0% 50%, rgba(255, 60, 199, .38), transparent 70%), radial-gradient(60vmax 60vmax at 60% 100%, rgba(124, 77, 255, .46), transparent 70%); }
+.L[data-l="5"] { background: radial-gradient(70vmax 70vmax at 0% 18%, rgba(52, 230, 255, .36), transparent 70%), radial-gradient(60vmax 60vmax at 100% 60%, rgba(91, 59, 255, .46), transparent 70%), radial-gradient(55vmax 55vmax at 40% 100%, rgba(184, 124, 255, .36), transparent 70%); }
+.L[data-l="6"] { background: radial-gradient(75vmax 75vmax at 50% 62%, rgba(255, 60, 199, .52), transparent 70%), radial-gradient(60vmax 60vmax at 0% 0%, rgba(124, 77, 255, .46), transparent 70%), radial-gradient(55vmax 55vmax at 100% 100%, rgba(184, 124, 255, .38), transparent 70%); }
+@keyframes lightdrift { to { transform: translate3d(-2.5%, 2%, 0) scale(1.07); } }
+
+/* Aurora: cuña cónica suave que gira despacio (sin filtro de desenfoque) */
+.aur { position: absolute; left: 50%; top: 50%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; border-radius: 50%; opacity: .55; will-change: transform; animation: aurspin 80s linear infinite;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 60, 199, .18) 50deg, transparent 110deg, rgba(52, 230, 255, .14) 190deg, transparent 250deg, rgba(124, 77, 255, .22) 310deg, transparent 360deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 10%, #000 55%); mask-image: radial-gradient(circle, transparent 10%, #000 55%); }
+@keyframes aurspin { to { transform: rotate(360deg); } }
+
+/* Rejilla en perspectiva (suelo) */
+.fgrid { position: absolute; left: -60%; right: -60%; bottom: -6vh; height: 52vh; overflow: hidden; opacity: .3; transform: perspective(420px) rotateX(70deg); transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 92%); mask-image: linear-gradient(to top, #000 10%, transparent 92%); }
+.fgrid i { position: absolute; left: 0; right: 0; top: -72px; bottom: 0; will-change: transform; animation: gridm 3s linear infinite;
+  background-image: linear-gradient(rgba(200, 150, 255, .5) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 150, 255, .36) 1px, transparent 1px); background-size: 72px 72px; }
+@keyframes gridm { to { transform: translate3d(0, 72px, 0); } }
+
+/* Haces de luz que cruzan de vez en cuando */
+.beam { position: absolute; top: -20vh; left: 0; width: 2px; height: 140vh; opacity: 0; will-change: transform, opacity; transform: translate3d(-10vw, 0, 0) rotate(24deg);
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, .55) 45%, rgba(184, 124, 255, .8) 50%, rgba(255, 255, 255, .55) 55%, transparent);
+  box-shadow: 0 0 10px rgba(184, 124, 255, .8); animation: beam 12s cubic-bezier(.45, 0, .55, 1) infinite; }
+.beam + .beam { animation-delay: 4.5s; animation-duration: 15s; background: linear-gradient(to bottom, transparent, rgba(52, 230, 255, .8) 50%, transparent); box-shadow: 0 0 10px rgba(52, 230, 255, .7); }
+@keyframes beam { 0% { transform: translate3d(-10vw, 0, 0) rotate(24deg); opacity: 0; } 10% { opacity: .9; } 60% { opacity: .5; } 78%, 100% { transform: translate3d(115vw, 0, 0) rotate(24deg); opacity: 0; } }
 
 /* ---------- Superficies de agua: tinte oscuro (el texto se lee), sin filtros pesados ---------- */
 .nav, .cart-btn, .btn.ghost, .pill, .tabs, .chips button, .filters input, .filters select, .faq-tools input,
@@ -83,16 +112,6 @@ body { background: linear-gradient(160deg, #1a0d3b, #090720 55%, #28092f) fixed,
   animation: ripple .8s cubic-bezier(.2, .7, .3, 1) forwards; }
 .ripple.ring { background: none; border: 2px solid rgba(255, 255, 255, .6); animation-duration: 1.1s; animation-delay: .06s; }
 @keyframes ripple { from { transform: scale(0); opacity: 1; } to { transform: scale(12); opacity: 0; } }
-
-/* ---------- Ondas de agua entre secciones (se pausan fuera de pantalla) ---------- */
-.wave { position: relative; height: 64px; margin-top: -10px; overflow: hidden; pointer-events: none; contain: strict;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 45%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 45%, transparent 100%); }
-.wave svg { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; will-change: transform; animation: waveMove 12s linear infinite; animation-play-state: paused; }
-.wave svg + svg { animation-duration: 18s; animation-direction: reverse; opacity: .7; height: 80%; }
-.wave.on svg { animation-play-state: running; }
-.wave path { fill: rgba(255, 255, 255, .09); }
-.wave svg + svg path { fill: rgba(90, 215, 255, .12); }
-@keyframes waveMove { to { transform: translate3d(-50%, 0, 0); } }
 
 /* ---------- Barra superior: cápsula flotante opaca ---------- */
 html { scroll-padding-top: 96px; }
@@ -182,9 +201,10 @@ html { scroll-padding-top: 96px; }
 .contact { contain-intrinsic-size: auto 300px; }
 
 /* ---------- Pausas de animación ambiental: al hacer scroll o con poca batería/CPU ---------- */
-.is-scrolling .orb, .is-scrolling .bg::after, .is-scrolling .wave svg, .is-scrolling .avatar-wrap,
+.is-scrolling .lights, .is-scrolling .aur, .is-scrolling .fgrid i, .is-scrolling .beam, .is-scrolling .avatar-wrap,
 .is-scrolling .vinyl, .is-scrolling .eq i, .is-scrolling .btn.primary::after, .is-scrolling .tabs::after { animation-play-state: paused !important; }
-.lite .orb, .lite .bg::after, .lite .wave svg, .lite .btn.primary::after, .lite .tabs::after, .lite .avatar-wrap { animation: none !important; }
+.lite .aur, .lite .fgrid, .lite .beam, .lite .btn.primary::after, .lite .tabs::after, .lite .avatar-wrap { display: none; animation: none !important; }
+.lite .lights { animation: none; }
 .lite .vinyl { animation-duration: 20s; }
 .lite .card { animation-duration: .35s; }
 
@@ -200,16 +220,31 @@ html { scroll-padding-top: 96px; }
   .social:nth-child(3) { animation-delay: .19s; } .social:nth-child(4) { animation-delay: .26s; }
   .social:nth-child(5) { animation-delay: .33s; } .social:nth-child(6) { animation-delay: .4s; }
   .social:nth-child(7) { animation-delay: .47s; }
-  .orb { width: 380px; height: 380px; }
+  .fgrid { height: 40vh; opacity: .26; }
   .drawer { border-radius: 28px 28px 0 0; top: auto; bottom: 0; right: 0; height: auto; max-height: 92vh; max-height: 92dvh; border-left: 0; border-top: 1px solid var(--water-line); transform: translateY(100%); width: 100%; left: 0; }
   .drawer.open { transform: none; }
 }
 @keyframes rise { from { opacity: 0; transform: translate3d(0, 40px, 0) scale(.9); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .orb, .bg::after, .btn.primary::after, .tabs::after, .wave svg, .avatar-wrap, .vinyl, .eq i, .card, .social { animation: none !important; }
+  .lights, .aur, .fgrid i, .beam, .btn.primary::after, .tabs::after, .avatar-wrap, .vinyl, .eq i, .card, .social { animation: none !important; }
+  .beam { display: none; }
+  .L { transition-duration: .3s; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
 /* Arreglo: la clase .big de las cifras (display:block) pisaba al botón .btn.big y lo estiraba a todo el ancho */
 .btn.big { display: inline-flex; font-family: inherit; line-height: 1.2; letter-spacing: normal; padding: 16px 40px; font-size: 17px; }
+
+/* ---------- Estilo Tecunelo: cromo líquido en titulares y filo metálico en tarjetas ---------- */
+:root { --chrome: linear-gradient(180deg, #fff 0%, #f1ecff 16%, #cfc3f2 36%, #9a88d8 48%, #d9d0f7 60%, #fff 78%, #c4b5f2 92%, #fff 100%);
+  --metal-ring: conic-gradient(from 20deg, #fff, #a08cff 12%, #34e6ff 25%, #fff 37%, #ff3cc7 50%, #c9b8ff 62%, #fff 75%, #5b3bff 88%, #fff); }
+h2, .stats b, .big:not(.btn), .records b { background: var(--chrome); background-size: 100% 190%; background-position: 50% 0; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+h2 em { -webkit-text-fill-color: transparent; background: linear-gradient(90deg, #b87cff, #ff3cc7); -webkit-background-clip: text; background-clip: text; }
+h2 { text-shadow: none; filter: drop-shadow(0 8px 24px rgba(124, 60, 255, .35)); }
+.card, .social, .panel, .lic-card, .cond, .stats div, .about-card { position: relative; }
+.card::after, .social::after, .panel::after, .lic-card::after, .cond::after, .stats div::after, .about-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; opacity: .32; transition: opacity .5s;
+  background: var(--metal-ring); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
+}
+.card:hover::after, .social:hover::after, .panel:hover::after, .lic-card:hover::after, .cond:hover::after { opacity: .95; }

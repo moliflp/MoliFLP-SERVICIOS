@@ -1,5 +1,5 @@
-/* Efectos de agua + gestor de rendimiento.
-   · Ondas entre secciones (se animan solo cuando se ven).
+/* Ambiente + rendimiento.
+   · Luz de fondo que cambia de color con cada sección (estilo Tecunelo), sin separadores.
    · Ondulación al tocar.
    · Modo «lite» automático en móviles flojos o con ahorro de datos.
    · Pausa de animaciones ambientales mientras se hace scroll. */
@@ -12,24 +12,36 @@
     (nav.connection && (nav.connection.saveData || /(^|-)2g$/.test(nav.connection.effectiveType || "")));
   if (flojo) root.classList.add("lite");
 
-  /* 2 · Ondas de agua entre secciones */
-  const onda = (d) => `<svg viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg>`;
-  const D1 = "M0 32 Q150 0 300 32 T600 32 T900 32 T1200 32 V60 H0Z";
-  const D2 = "M0 24 Q150 56 300 24 T600 24 T900 24 T1200 24 V60 H0Z";
-  const ondas = [];
-  document.querySelectorAll("main > .section:not(:first-child)").forEach((s) => {
-    const w = document.createElement("div");
-    w.className = "wave"; w.setAttribute("aria-hidden", "true");
-    w.innerHTML = onda(D1) + onda(D2);
-    s.parentNode.insertBefore(w, s);
-    ondas.push(w);
-  });
+  /* 2 · Fondo: dos capas de luz que se funden + aurora, rejilla y haces */
+  const bg = document.querySelector(".bg");
+  const capas = [];
+  if (bg) {
+    bg.insertAdjacentHTML("afterbegin",
+      '<div class="aur"></div><div class="fgrid"><i></i></div><i class="beam"></i><i class="beam"></i>' +
+      '<div class="lights"><div class="L on" data-l="0"></div><div class="L" data-l="0"></div></div>');
+    capas.push(...bg.querySelectorAll(".L"));
+  }
+  let actual = 0, capa = 0;
+  const luz = (n) => {
+    if (n === actual || !capas.length) return;
+    actual = n;
+    const entra = capas[1 - capa], sale = capas[capa];
+    entra.dataset.l = n;
+    // un fotograma para que el navegador registre la capa nueva antes del fundido
+    requestAnimationFrame(() => { entra.classList.add("on"); sale.classList.remove("on"); });
+    capa = 1 - capa;
+  };
+
+  /* La sección que cruza el centro de la pantalla decide el color de la luz */
+  const SECCIONES = [".hero", "#sobre-mi", "#numeros", "#catalogo", "#servicios", "#faq", ".contact"];
+  const centro = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) luz(SECCIONES.findIndex((s) => e.target.matches(s)));
+  }), { rootMargin: "-50% 0px -50% 0px" });
+  SECCIONES.forEach((s) => { const el = document.querySelector(s); if (el) centro.observe(el); });
 
   /* 3 · Animar solo lo que está en pantalla */
   const hero = document.querySelector(".hero");
-  const visibles = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle("on", e.isIntersecting)), { rootMargin: "80px" });
-  ondas.forEach((w) => visibles.observe(w));
-  if (hero) visibles.observe(hero);
+  if (hero) new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle("on", e.isIntersecting)), { rootMargin: "80px" }).observe(hero);
 
   /* 4 · Pausar lo ambiental mientras se hace scroll (scroll a 60 fps) */
   let t = 0, scrolling = false;
