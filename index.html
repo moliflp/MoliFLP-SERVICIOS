@@ -5,11 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>MoliFLP Servicios | Música, beats y producción</title>
   <meta name="description" content="MoliFLP, productor musical independiente. Compra mi música, licencias de instrumentales, mezcla, máster y producción a medida.">
-  <meta name="theme-color" content="#050507">
-  <meta property="og:title" content="MoliFLP Servicios">
-  <meta property="og:description" content="Música, instrumentales y producción musical. Escucha, elige y pide.">
-  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages211/v4/2b/0a/ba/2b0aba16-d1e7-290d-1220-6b1f1d23c87c/ami-identity-6f77f5facf01d2132efe00637cc0d89a-2025-10-13T11-26-26.230Z_cropped.png/486x486bb.png">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>">
+  <meta name="theme-color" content="#05020c">
+  <link rel="canonical" href="https://moliflp-servicios.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MoliFLP">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://moliflp-servicios.vercel.app/">
+  <meta property="og:title" content="MoliFLP · Productor musical en Úbeda (Jaén)">
+  <meta property="og:description" content="Beats a medida, mezcla, máster y producción. +4M de reproducciones y +40K oyentes al mes. Escucha, elige y pide.">
+  <meta property="og:image" content="https://moliflp-servicios.vercel.app/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="MoliFLP, productor musical independiente de Úbeda (Jaén)">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MoliFLP · Productor musical en Úbeda (Jaén)">
+  <meta name="twitter:description" content="Beats a medida, mezcla, máster y producción. Escucha, elige y pide.">
+  <meta name="twitter:image" content="https://moliflp-servicios.vercel.app/assets/og.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="MoliFLP">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="color-scheme" content="dark">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+   {"@type":"Person","@id":"https://moliflp-servicios.vercel.app/#moliflp","name":"MoliFLP","jobTitle":"Productor musical","description":"Productor, beatmaker y DJ independiente de Úbeda (Jaén). Flamenco, urbano, rap, mambo y pop.","url":"https://moliflp-servicios.vercel.app/","image":"https://moliflp-servicios.vercel.app/assets/og.png","homeLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":"Úbeda","addressRegion":"Jaén","addressCountry":"ES"}},"sameAs":["https://open.spotify.com/intl-es/artist/4szvPLKIPZzeUIsnGun2G9","https://music.apple.com/es/artist/moliflp/1712678802","https://music.amazon.com/artists/B0CLDWJK3Q/moliflp","https://instagram.com/MoliFLP","https://tiktok.com/@_MoliFLP_"]},
+   {"@type":"WebSite","name":"MoliFLP Servicios","url":"https://moliflp-servicios.vercel.app/","inLanguage":"es"},
+   {"@type":"ProfessionalService","name":"MoliFLP · Producción musical","url":"https://moliflp-servicios.vercel.app/","areaServed":"ES","provider":{"@id":"https://moliflp-servicios.vercel.app/#moliflp"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Servicios de estudio","itemListElement":[
+     {"@type":"Offer","priceCurrency":"EUR","price":"150","itemOffered":{"@type":"Service","name":"Beat a medida"}},
+     {"@type":"Offer","priceCurrency":"EUR","price":"50","itemOffered":{"@type":"Service","name":"Mezcla de voces"}},
+     {"@type":"Offer","priceCurrency":"EUR","price":"30","itemOffered":{"@type":"Service","name":"Máster"}},
+     {"@type":"Offer","priceCurrency":"EUR","price":"70","itemOffered":{"@type":"Service","name":"Mezcla + máster"}},
+     {"@type":"Offer","priceCurrency":"EUR","price":"199","itemOffered":{"@type":"Service","name":"Tema completo"}}]}}]}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://is1-ssl.mzstatic.com" crossorigin>
@@ -19,6 +48,7 @@
   <link rel="stylesheet" href="glass.css">
 </head>
 <body>
+  <a class="skip" href="#catalogo">Saltar al contenido</a>
   <div class="bg" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
 
   <header class="nav" id="top">
@@ -188,7 +218,7 @@
     </section>
   </main>
 
-  <footer class="foot">MOLIFLP © <span id="year"></span> · Producción independiente</footer>
+  <footer class="foot">MOLIFLP © <span id="year"></span> · Producción independiente · <a href="bio">Enlaces</a> · <a href="prensa">Dossier de prensa</a></footer>
 
   <!-- Reproductor -->
   <div class="player" id="player" hidden>
@@ -221,5 +251,7 @@
   <script src="app.js"></script>
   <script src="glass.js" defer></script>
   <script src="water.js" defer></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script>"serviceWorker"in navigator&&addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))</script>
 </body>
 </html>

@@ -248,3 +248,17 @@ h2 { text-shadow: none; filter: drop-shadow(0 8px 24px rgba(124, 60, 255, .35));
   background: var(--metal-ring); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
 }
 .card:hover::after, .social:hover::after, .panel:hover::after, .lic-card:hover::after, .cond:hover::after { opacity: .95; }
+
+/* ===== Accesibilidad ===== */
+.skip{position:fixed;left:12px;top:-60px;z-index:100;padding:12px 18px;border-radius:14px;background:#fff;color:#120a2c;font-weight:700;text-decoration:none;transition:top .2s}
+.skip:focus{top:max(12px,env(safe-area-inset-top))}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #19d3ff;outline-offset:3px;border-radius:12px}
+@media (pointer:coarse){
+  .nav .links a,.chips button,.tabs button,.pill,.cart-btn,.add,.lic button,.pl-btn,.pl-x,#drClose,.dr-actions .btn{min-height:44px;min-width:44px}
+  .foot a{display:inline-block;padding:12px 6px}
+}
+.foot a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+/* Zona táctil ≥44 px sin cambiar el diseño visible */
+.listen a,.nav .logo{position:relative}
+.listen a::before,.nav .logo::before{content:"";position:absolute;inset:-6px}
+@media (pointer:coarse){.lic button,.buy .add{min-height:44px}}
