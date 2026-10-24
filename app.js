@@ -116,7 +116,7 @@
 
   const portada = (t, badge) => `
       <div class="cover">
-        <img src="${esc(t.img)}" alt="Portada de ${esc(t.titulo)}" loading="lazy" width="600" height="600">
+        <img src="${esc(t.img)}" alt="Portada de ${esc(t.titulo)}" loading="lazy" decoding="async" width="600" height="600">
         ${badge}
         <button class="play" data-play="${t.id}" aria-label="Escuchar ${esc(t.titulo)}">${state.playing === t.id ? PAUSE : PLAY}</button>
       </div>`;
