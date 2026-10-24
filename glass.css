@@ -1,0 +1,162 @@
+/* =========================================================
+   MoliFLP — capa Liquid Glass (estilo Apple)
+   Se carga DESPUÉS de styles.css. Para volver al diseño anterior,
+   borra la línea <link rel="stylesheet" href="glass.css"> del index.html.
+   ========================================================= */
+:root {
+  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter Display", Inter, system-ui, sans-serif;
+  --glass: linear-gradient(135deg, rgba(255, 255, 255, .20), rgba(255, 255, 255, .06) 55%, rgba(255, 255, 255, .12));
+  --glass-line: rgba(255, 255, 255, .26);
+  --glass-hi: inset 0 1.5px 1px rgba(255, 255, 255, .55), inset 0 -1.5px 6px rgba(255, 255, 255, .12), inset 0 0 40px rgba(255, 255, 255, .04);
+  --glass-drop: 0 18px 50px rgba(5, 0, 30, .38);
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+  --r: 28px;
+}
+
+/* ---------- Tipografía tipo SF ---------- */
+.logo, .title, h2, .h3, .stats b, .price, .big, .top .n, .records b, .dr-head h3, .dr-total b, .timeline b { font-family: var(--display); }
+.logo { letter-spacing: .01em; font-weight: 800; font-size: 20px; }
+.title { font-weight: 800; letter-spacing: -.045em; font-size: clamp(56px, 15vw, 128px); }
+h2 { font-weight: 800; letter-spacing: -.035em; }
+.h3 { font-weight: 700; letter-spacing: -.02em; }
+.eyebrow, .kicker, .lbl { letter-spacing: .22em; }
+.lead { font-size: 18px; color: #c9c1de; }
+
+/* ---------- Fondo: color vivo que el cristal refracta ---------- */
+body { background: linear-gradient(160deg, #1b0f3d, #0a0820 55%, #2a0a35) fixed, var(--bg); }
+.orb { filter: blur(70px); mix-blend-mode: screen; opacity: .55; animation: blob 14s ease-in-out infinite alternate; will-change: transform; }
+.o1 { width: 560px; height: 560px; background: radial-gradient(circle, #ff3d9a, transparent 68%); top: 4%; left: -200px; }
+.o2 { width: 620px; height: 620px; background: radial-gradient(circle, #7a4dff, transparent 68%); top: 38%; right: -260px; opacity: .6; animation-duration: 17s; animation-delay: -5s; }
+.o3 { width: 540px; height: 540px; background: radial-gradient(circle, #19d3ff, transparent 68%); bottom: -180px; left: 10%; opacity: .45; animation-duration: 15s; animation-delay: -9s; }
+.bg::after { content: ""; position: absolute; right: 8%; bottom: 18%; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, #ffb347, transparent 68%); filter: blur(60px); mix-blend-mode: screen; opacity: .4; animation: blob 12s ease-in-out infinite alternate -3s; }
+@keyframes blob { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(120px, 160px) scale(1.2); } }
+
+/* ---------- Superficies de cristal ---------- */
+.nav, .cart-btn, .btn.ghost, .pill, .tabs, .chips button, .filters input, .filters select, .faq-tools input,
+.card, .social, .panel, .lic-card, .cond, .stats div, .about-card, .faq details, .faq-ask, .player, .breakdown,
+.roles li, .tags span, .dr-name input, .listen a, .lic button {
+  background-image: radial-gradient(260px circle at var(--mx, 50%) var(--my, -20%), rgba(255, 255, 255, .20), transparent 62%), var(--glass);
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(22px) saturate(180%) brightness(1.08);
+  backdrop-filter: blur(22px) saturate(180%) brightness(1.08);
+  border: 1px solid var(--glass-line);
+  box-shadow: var(--glass-hi), var(--glass-drop);
+}
+.card, .social, .panel, .lic-card, .cond, .stats div, .about-card, .faq details, .faq-ask { border-radius: var(--r); }
+.breakdown, .listen a, .lic button, .filters input, .filters select, .faq-tools input, .dr-name input { border-radius: 18px; }
+.listen a, .lic button, .breakdown { box-shadow: var(--glass-hi); }
+.faq-ask { border-style: solid; }
+
+/* Destello especular que barre el cristal */
+.nav, .tabs, .btn, .card, .social, .panel, .lic-card, .cond, .stats div, .about-card, .cart-btn, .pill { position: relative; overflow: hidden; }
+.nav { overflow: visible; }
+.nav::after, .tabs::after, .btn::after, .card::after, .social::after, .panel::after, .lic-card::after, .cond::after, .stats div::after, .about-card::after, .cart-btn::after, .pill::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .34) 50%, transparent 65%);
+  background-size: 300% 100%; background-position: 130% 0; mix-blend-mode: overlay;
+  animation: sheen 7s ease-in-out infinite; animation-delay: calc(var(--i, 0) * .6s);
+}
+.social:nth-child(2)::after, .card:nth-child(2n)::after, .panel:nth-child(2)::after { --i: 2; }
+.social:nth-child(3)::after, .card:nth-child(3n)::after, .panel:nth-child(3)::after { --i: 4; }
+.social:nth-child(4)::after, .card:nth-child(4n)::after { --i: 6; }
+@keyframes sheen { 0% { background-position: 130% 0; } 45%, 100% { background-position: -70% 0; } }
+
+/* ---------- Barra superior: cápsula flotante ---------- */
+html { scroll-padding-top: 96px; }
+.nav { top: 10px; margin: 10px clamp(10px, 3vw, 32px) 0; padding: 10px 12px 10px 22px; border-radius: 999px; border-bottom: 1px solid var(--glass-line); }
+.cart-btn { padding: 8px 14px; box-shadow: var(--glass-hi); }
+.cart-btn b { box-shadow: inset 0 1px 1px rgba(255, 255, 255, .5); }
+
+/* ---------- Botones ---------- */
+.btn { transition: transform .45s var(--spring), box-shadow .3s, background .2s; }
+.btn:active, .cart-btn:active, .tabs button:active, .chips button:active, .pill:active, .add:active { transform: scale(.95); }
+.btn.primary {
+  background: linear-gradient(135deg, rgba(168, 96, 255, .92), rgba(255, 79, 216, .9));
+  border: 1px solid rgba(255, 255, 255, .45);
+  box-shadow: inset 0 2px 1px rgba(255, 255, 255, .6), inset 0 -2px 8px rgba(120, 0, 120, .25), 0 14px 40px rgba(255, 79, 216, .38);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.btn.primary:hover { transform: translateY(-3px) scale(1.02); }
+.btn.ghost:hover { background-color: rgba(255, 255, 255, .08); }
+.add { background: linear-gradient(180deg, #fff, #ece4ff); box-shadow: inset 0 1px 1px #fff, 0 6px 18px rgba(0, 0, 0, .25); transition: transform .4s var(--spring); }
+.play, .pl-btn {
+  background: linear-gradient(135deg, rgba(168, 96, 255, .9), rgba(255, 79, 216, .88));
+  border: 1px solid rgba(255, 255, 255, .5);
+  box-shadow: inset 0 2px 1px rgba(255, 255, 255, .6), 0 10px 26px rgba(0, 0, 0, .45);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+
+/* ---------- Pestañas y chips ---------- */
+.tabs { padding: 5px; }
+.tabs button { position: relative; z-index: 1; transition: background .35s var(--spring), color .25s, transform .3s var(--spring); }
+.tabs button.active { color: #fff; background: rgba(255, 255, 255, .26); box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, .7), 0 6px 18px rgba(0, 0, 0, .3); }
+.chips button.active, .chips button:hover { background-color: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .55); color: #fff; }
+.lic button.on { background-image: linear-gradient(135deg, rgba(168, 96, 255, .55), rgba(255, 79, 216, .4)); border-color: rgba(255, 255, 255, .5); color: #fff; }
+
+/* ---------- Tarjetas ---------- */
+.card { transition: transform .5s var(--spring), border-color .3s, box-shadow .3s; }
+.card:hover { transform: translateY(-6px) scale(1.01); border-color: rgba(255, 255, 255, .5); box-shadow: var(--glass-hi), 0 28px 70px rgba(5, 0, 30, .5); }
+.card.playing { border-color: rgba(255, 255, 255, .7); box-shadow: var(--glass-hi), 0 0 0 1px rgba(255, 79, 216, .8), 0 20px 60px rgba(255, 79, 216, .3); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(26px) scale(.95); filter: blur(10px); } }
+.cover { border-radius: calc(var(--r) - 8px); margin: 8px 8px 0; }
+.card.svc-card .cover { display: none; }
+.badge { backdrop-filter: blur(14px); background: rgba(10, 6, 30, .45); border: 1px solid rgba(255, 255, 255, .3); }
+.badge.new { background: rgba(61, 255, 139, .85); }
+.featured::before { background: linear-gradient(135deg, rgba(168, 96, 255, .95), rgba(255, 79, 216, .9)); border: 1px solid rgba(255, 255, 255, .4); }
+.svc-card .ico, .pack .ico { background: var(--glass); border: 1px solid var(--glass-line); box-shadow: var(--glass-hi); border-radius: 22px; }
+.lic-card:nth-child(3) { background-image: linear-gradient(160deg, rgba(168, 96, 255, .4), rgba(255, 79, 216, .16)), var(--glass); }
+.cond:first-child { background-image: linear-gradient(140deg, rgba(255, 207, 107, .3), rgba(255, 207, 107, .06)), var(--glass); border-color: rgba(255, 207, 107, .6); }
+.total-panel { background-image: linear-gradient(160deg, rgba(29, 185, 84, .22), rgba(155, 92, 255, .12)), var(--glass); }
+.about-text p.gold, .about-text p.hl { border-radius: 22px; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: var(--glass-hi); }
+.faq details[open] { background-image: linear-gradient(135deg, rgba(168, 96, 255, .3), rgba(255, 255, 255, .06)), var(--glass); border-color: rgba(255, 255, 255, .5); }
+.faq summary { padding: 20px 24px; }
+.roles li { color: #e9fbff; border-color: rgba(255, 255, 255, .35); box-shadow: var(--glass-hi); }
+.video { border-radius: var(--r); border: 1px solid var(--glass-line); box-shadow: var(--glass-hi), var(--glass-drop); }
+
+/* ---------- Redes: mosaico centrado de cristal ---------- */
+.socials { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); max-width: 720px; margin-left: auto; margin-right: auto; gap: 12px; }
+.socials li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.social { flex-direction: column; justify-content: center; text-align: center; gap: 10px; padding: 18px 12px; min-width: 0; transition: transform .5s var(--spring), border-color .3s; }
+.social div { flex: none; width: 100%; }
+.social .ic { width: 52px; height: 52px; border-radius: 18px; background: var(--glass); border: 1px solid var(--glass-line); box-shadow: var(--glass-hi); }
+.social .ic svg { width: 26px; height: 26px; }
+.social b { font-size: 16px; }
+.social small { display: block; font-size: 11px; line-height: 1.3; letter-spacing: .06em; margin-top: 2px; }
+.social em { display: none; }
+.social:hover { transform: translateY(-5px) scale(1.02); }
+.social:active { transform: scale(.96); }
+
+/* ---------- Reproductor, carrito, aviso ---------- */
+.player { border-radius: 30px; border-color: var(--glass-line); }
+.pl-bar i { background: #fff; }
+.drawer {
+  background: linear-gradient(160deg, rgba(60, 30, 110, .55), rgba(14, 8, 30, .62));
+  -webkit-backdrop-filter: blur(40px) saturate(190%); backdrop-filter: blur(40px) saturate(190%);
+  border-left: 1px solid var(--glass-line); box-shadow: inset 1px 0 1px rgba(255, 255, 255, .4), -30px 0 80px rgba(0, 0, 0, .5);
+  border-radius: 32px 0 0 32px;
+}
+.scrim { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); background: rgba(5, 0, 20, .45); }
+.toast { background: rgba(255, 255, 255, .85); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%); box-shadow: inset 0 1px 1px #fff, 0 14px 40px rgba(0, 0, 0, .35); }
+.dr-name input { color: #fff; }
+::placeholder { color: rgba(255, 255, 255, .5); }
+
+/* ---------- Móvil: centrado y ligero ---------- */
+@media (max-width: 560px) {
+  .nav { margin: 8px 10px 0; top: 8px; }
+  .hero { padding: 40px 14px 28px; }
+  .title { font-size: clamp(54px, 17vw, 84px); }
+  .cart-btn { padding: 7px 12px; }
+  .socials { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 28px; }
+  .card, .social, .panel, .lic-card, .cond, .stats div, .about-card, .faq details, .faq-ask {
+    -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%);
+  }
+  .drawer { border-radius: 28px 28px 0 0; top: auto; bottom: 0; right: 0; height: auto; max-height: 92vh; max-height: 92dvh; border-left: 0; border-top: 1px solid var(--glass-line); transform: translateY(100%); width: 100%; left: 0; }
+  .drawer.open { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb, .bg::after, .nav::after, .tabs::after, .btn::after, .card::after, .social::after, .panel::after, .lic-card::after, .cond::after, .stats div::after, .about-card::after, .cart-btn::after, .pill::after { animation: none !important; }
+}
+
+/* Legibilidad de los subtítulos de color sobre cristal */
+.social small { color: color-mix(in srgb, var(--c) 55%, #fff); text-shadow: 0 1px 8px rgba(5, 0, 30, .45); }
