@@ -137,9 +137,9 @@ const SERVICIOS = [
 ];
 
 const PACKS = [
-  { id: "p-tema",    nombre: "Tema completo",     precio: 249, antes: 270, icono: "👑", texto: "Beat a medida + arreglo de voces + mezcla de voces + máster.", incluye: ["Beat desde cero", "Arreglo y mezcla de voces", "Máster"], beat: true },
-  { id: "p-lanza",   nombre: "Tema + lanzamiento", precio: 279, antes: 305, icono: "🚀", texto: "El Tema completo más el pitch y la presentación para el lanzamiento.", incluye: ["Todo el Tema completo", "Pitch y presentación"], beat: true },
-  { id: "p-ep",      nombre: "Pack EP (3 temas)", precio: 199, antes: 210, icono: "📀", texto: "3 temas mezclados y masterizados con el mismo sonido. Ahorras 11 € frente a pedirlos por separado (unos 66 € por tema).", incluye: ["3 × Mezcla de voces + máster", "Sonido unificado"] },
+  { id: "p-tema",    nombre: "Tema completo",     precio: 199, antes: 270, icono: "👑", texto: "Beat a medida + arreglo de voces + mezcla de voces + máster.", incluye: ["Beat desde cero", "Arreglo y mezcla de voces", "Máster"], beat: true },
+  { id: "p-lanza",   nombre: "Tema + lanzamiento", precio: 229, antes: 305, icono: "🚀", texto: "El Tema completo más el pitch y la presentación para el lanzamiento.", incluye: ["Todo el Tema completo", "Pitch y presentación"], beat: true },
+  { id: "p-ep",      nombre: "Pack EP (3 temas)", precio: 190, antes: 210, icono: "📀", texto: "3 temas mezclados y masterizados con el mismo sonido. Ahorras 20 € frente a pedirlos por separado (unos 63 € por tema).", incluye: ["3 × Mezcla de voces + máster", "Sonido unificado"] },
 ];
 
 /* Preguntas frecuentes, agrupadas por tema */
