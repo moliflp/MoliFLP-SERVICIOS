@@ -1,15 +1,15 @@
 {
-  "actualizado": "2026-11-13T13:51:26.982Z",
-  "total": 1429466,
+  "actualizado": "2026-11-14T12:54:57.695Z",
+  "total": 1433107,
   "porDia": "2 K",
   "plataformas": [
     {
       "nombre": "Spotify",
-      "valor": 1328354
+      "valor": 1331968
     },
     {
       "nombre": "YouTube",
-      "valor": 99486
+      "valor": 99513
     },
     {
       "nombre": "SoundCloud",
@@ -20,17 +20,17 @@
     {
       "titulo": "Guaya Guaya (Remix Mambo)",
       "con": "RmzProd",
-      "streams": 1264961
+      "streams": 1268572
     },
     {
       "titulo": "Menina de Vermelho (Spanish Version)",
       "con": "Papi Vins, RmzProd y CocoJR",
-      "streams": 83826
+      "streams": 83854
     },
     {
       "titulo": "Reina de Mis Fantasías",
       "con": "Manuel Risoto",
-      "streams": 80643
+      "streams": 80645
     }
   ]
 }
